@@ -353,5 +353,8 @@ appsettings.json/
 [Bb]bj/
 [Oo]bj/
 [Ll]bj/
-
+/dist
+/tmp
+/out-tsc
+ssl
 
