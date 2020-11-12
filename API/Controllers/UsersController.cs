@@ -6,7 +6,7 @@ using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {   
@@ -24,7 +24,7 @@ namespace API.Controllers
         {
             return await _context.Users.ToListAsync();
         }
-
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {

@@ -1,3 +1,4 @@
+using System.Text;
 using System.ComponentModel.Design;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ using Microsoft.OpenApi.Models;
 using API.Data;  
 using API.Interfaces;
 using API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
 namespace API
 {
     public class Startup
@@ -34,6 +38,16 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>{
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenKey"])), 
+                    ValidateIssuer = false,
+                    ValidateAudience =false,
+                };
+            });
 
             services.AddControllers();  
             services.AddCors();
@@ -65,6 +79,9 @@ namespace API
 
             app.UseCors(x=> x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200")); //this order is important 
 
+
+            app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
