@@ -14,10 +14,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using API.Data;  
+using API.Interfaces;
+using API.Services;
 namespace API
 {
     public class Startup
     {
+        newclass a;
         private readonly IConfiguration _config;
         public Startup(IConfiguration config)
         {
@@ -32,7 +35,7 @@ namespace API
 
             services.AddControllers();  
             services.AddCors();
-
+            services.AddScoped<ITokenService,TokenService>();
             services.AddDbContext<DataContext>(options =>{
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });

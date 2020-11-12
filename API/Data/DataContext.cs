@@ -1,5 +1,4 @@
 using System;
-
 using Microsoft.EntityFrameworkCore;
 using API.Entities;
 namespace API.Data
