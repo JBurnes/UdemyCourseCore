@@ -21,9 +21,16 @@
         </li>
 
     </ul>
-      <div class="dropdown" *ngIf="loggedIn"> 
-      <a  class="dropdown-toggle text l">Edit Profile</a>
-      <a  class="dropdown-toggle text l" (click) ="logout()">Logout</a>                    
+
+      <div  class="dropdown" *ngIf="loggedIn" dropdown> 
+        
+        <a  class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+        
+        <div class="dropdown-menu mt-3" *dropdownMenu>
+          <a  class="dropdown-toggle text l">Edit Profile</a>
+          <div class="dropdown-divider "></div>
+          <a  class="dropdown-toggle text l" (click) ="logout()">Logout</a> 
+        </div>                           
       
       </div>
 
