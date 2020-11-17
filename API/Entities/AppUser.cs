@@ -1,6 +1,8 @@
 using System.Security.AccessControl;
 using System;
 using System.Collections.Generic;
+using API.Extensions;
+
 namespace API.Entities
 {
     public class AppUser
@@ -20,6 +22,11 @@ namespace API.Entities
         public string City { get; set; }
         public string  Country { get; set; }
         public ICollection <Photo> Photos { get; set; }
+
+        public int GetAge( )
+        {
+            return DateOfBirth.CalculateAge();
+        }
 
     }
 }
