@@ -4,6 +4,7 @@
   <a class="navbar-brand" routerLink='/'>Dating App b</a>        
 
     <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ |async">
+      <ng-container>
         <li class="nav-item ">
           <a class="nav-link" routerLink='/members' routerLinkActive='active'>Matches</a>
         </li>
@@ -19,6 +20,9 @@
         <li class="nav-item">
           <a class="nav-link disabled" (click)="logout()" href="#" >Logout</a>
         </li>
+
+      </ng-container>
+      
 
     </ul>
 
