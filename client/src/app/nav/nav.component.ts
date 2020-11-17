@@ -17,7 +17,10 @@ export class NavComponent implements OnInit {
   model:any = {}
   users:any;
    
-  constructor(private http: HttpClient, public accountService: AccountService, private router: Router ,private toastr:ToastrService) { }
+  constructor(private http: HttpClient,
+     public accountService: AccountService,
+     private router: Router ,
+    private toastr:ToastrService) { }
 
   ngOnInit(): void {
    this.getUsers();
@@ -42,7 +45,7 @@ getUsers()
       console.log(response);
     },error => {
       console.log(error);
-      this.toastr.error(error);
+      this.toastr.error(error.error);
     })    
   }
   logout(){
