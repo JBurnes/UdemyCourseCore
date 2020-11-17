@@ -15,7 +15,7 @@ export class NavComponent implements OnInit {
   model:any = {}
   users:any;
    
-  constructor(private http: HttpClient, public accountServices: AccountService) { }
+  constructor(private http: HttpClient, public accountService: AccountService) { }
 
   ngOnInit(): void {
    this.getUsers();
@@ -26,7 +26,7 @@ export class NavComponent implements OnInit {
   setCurrentUser()
 {
   const user: User = JSON.parse(localStorage.getItem('user'));
-  this.accountServices.serCurrentUser(user);
+  this.accountService.setCurrentUser(user);
 } 
 getUsers()
 {
@@ -35,14 +35,14 @@ getUsers()
   })
 }
  login(){
-    this.accountServices.login(this.model).subscribe(response =>{
+    this.accountService.login(this.model).subscribe(response =>{
       console.log(response);
     },error => {
       console.log(error);
     })    
   }
   logout(){
-    this.accountServices.logout();
+    this.accountService.logout();
   }
   
 }
