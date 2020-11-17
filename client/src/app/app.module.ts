@@ -17,6 +17,7 @@ import { ListsComponent } from './lists/lists.component';
 import { Toast, ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './_modules/shared.module';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
     MessagesComponent,
     MemberDetailComponent,
     ListsComponent,
+    TestErrorsComponent,
   ],
   imports: [
     BrowserModule,
