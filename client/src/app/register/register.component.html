@@ -12,13 +12,7 @@
     </div>
 
 
-    <div class="form-group">
-       <label >Who is your favorite user?</label>
-       <select class="from-control">
-        <option ngFor="let user of usersFromHomeComponents" [value]="user.userName"></option>
-       </select>
-       
-    </div>
+    
     <div class="form-group text-center">
         <button class="btn btn-success mr-2" type="submit">Register</button>
         <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
