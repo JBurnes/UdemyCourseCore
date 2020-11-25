@@ -15,11 +15,12 @@ import { MessagesComponent } from './messages/messages.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { ListsComponent } from './lists/lists.component';
 import { Toast, ToastrModule } from 'ngx-toastr';
-import { SharedModule } from './_models/shared.module';
+import { SharedModule } from './_modules/shared.module';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,10 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    MessagesComponent,
+    MemberListComponent,
     MemberDetailComponent,
     ListsComponent,
+    MessagesComponent,
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
@@ -43,7 +45,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
    SharedModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })
