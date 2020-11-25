@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
-import { User } from '../_modules/user';
+import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
