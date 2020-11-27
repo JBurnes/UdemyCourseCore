@@ -13,7 +13,9 @@ using API.DTOs;
 
 namespace API.Controllers
 {
-    [Authorize]
+    //TODO fix token
+   // [Authorize]  comment becoause token do not work.
+   
     public class UsersController : BaseApiController
     {
         private readonly IMapper _mapper;
