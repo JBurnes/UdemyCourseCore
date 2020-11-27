@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 @Component({
@@ -9,9 +10,22 @@ import { MembersService } from 'src/app/_services/members.service';
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css']
 })
+
 export class MemberDetailComponent implements OnInit {
 member: Member;
-  constructor(private memberService: MembersService, private route: ActivatedRoute) { }
+asyncTabs: Observable<ExampleTab[]>;
+  constructor(private memberService: MembersService, private route: ActivatedRoute) { 
+
+    this.asyncTabs = new Observable((observer: Observer<ExampleTab[]>) => {
+      setTimeout(() => {
+        observer.next([
+          {label: 'First', content: 'Content 1'},
+          {label: 'Second', content: 'Content 2'},
+          {label: 'Third', content: 'Content 3'},
+        ]);
+      }, 1000);
+    });
+  }
 
   ngOnInit(): void {
     this.loadMember ();
@@ -23,3 +37,13 @@ member: Member;
     })
    }
 }
+
+
+import {Observable, Observer} from 'rxjs';
+
+export interface ExampleTab {
+  label: string;
+  content: string;
+}
+
+

@@ -23,6 +23,8 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import{MatInputModule}from '@angular/material/input';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
     NotFoundComponent,
     ServerErrorComponent,
     MemberCardComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,9 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
    HttpClientModule,
    BrowserAnimationsModule,
    FormsModule,
-   SharedModule
+   SharedModule,
+   MatInputModule,
+   MatTabsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

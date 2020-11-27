@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
+import { MatSliderModule } from '@angular/material/slider';
 
-
-
+import{MatInputModule}from '@angular/material/input'
 @NgModule({
   declarations: [],
   imports: [
@@ -12,11 +12,15 @@ import { ToastrModule } from 'ngx-toastr';
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
      positionClass:'toast-bootom-right'
-   })
+   }),
+   MatSliderModule,
+   MatInputModule
+  
   ],
   exports:[
     BsDropdownModule,
-    ToastrModule
+    ToastrModule,
+   
   ]
 })
 export class SharedModule { }
