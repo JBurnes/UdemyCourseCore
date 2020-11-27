@@ -1,2 +1,35 @@
 <div>ditail works </div>
-<h1 a-ngIf="member">{{member.knownAs}}</h1>    
+<h1 a-ngIf="member">{{member.knownAs}}</h1>   
+
+<div class="row" >
+     <div class="class col-4">
+         <div class="class card">
+             <img src="{{member.photoUrl || './assets/user.png'}}" alt="memeber.knownAs" 
+             class="card-img-top img-thumbnail">
+             <div class="class card-body">
+                 <div>
+                     <strong> Location</strong>
+                     <p>{{member.city}},{{member.country}}</p>
+                 </div>
+                 <div>
+                    <strong> Age</strong>
+                    <p>{{member.age}}</p>
+                </div>
+                <div>
+                    <strong> Last Active</strong>
+                    <p>{{member.lastActive}}</p>
+                </div>
+                <div>
+                    <strong> Member since</strong>
+                    <p>{{member.created}}</p>
+                </div>
+               
+             </div>
+             <div class="class card-footer">
+                 <div class="class btn-group d-flex"></div>
+                 <div class="class btn-primary">Like</div>
+                 <div class="class btn-success">Message</div>
+             </div>
+         </div>
+     </div>
+</div>
