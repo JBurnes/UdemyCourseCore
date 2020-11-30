@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,6 +36,21 @@ namespace API.Controllers
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
             return await _userRepository.GetMemberAsync(username);
+        }
+        [HttpPut]
+        public async Task<ActionResult>UpdateUser(MemberUpdateDto memberUpdateDto){
+
+            var username= User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user= await _userRepository.GetUserByUsernameAsync(username);
+            
+
+            //si usas auto mamer no requieres asignar valores al dto 
+            _mapper.Map(memberUpdateDto,user);
+
+            if(await _userRepository.SaveAllAsync())return  NoContent();
+
+            return BadRequest("Failed to update user");
+
         }
     }
 }
