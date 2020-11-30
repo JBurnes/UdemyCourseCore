@@ -27,6 +27,8 @@ import{MatInputModule}from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,11 +56,13 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
    SharedModule,
    MatInputModule,
    MatTabsModule,
-   NgxGalleryModule
+   NgxGalleryModule,
+   NgxSpinnerModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
