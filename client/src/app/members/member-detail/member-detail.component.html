@@ -34,29 +34,20 @@
              </div>
 
 
-             <form class="example-form">
-                <mat-form-field class="example-full-width">
-                  <mat-label>Favorite food</mat-label>
-                  <input matInput placeholder="Ex. Pizza" value="Sushi">
-                </mat-form-field>
-              
-                <mat-form-field class="example-full-width">
-                  <mat-label>Leave a comment</mat-label>
-                  <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-                </mat-form-field>
-              </form>
-            
+             <ngx-gallery [options]="galleryOptions" [images]="galleryImages" 
+             style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
 
          </div>
      </div>
      <ng-container *ngIf="(asyncTabs | async) === null">
-        Loading tabs...
+       
       </ng-container>
       
       <mat-tab-group>
         <mat-tab *ngFor="let tab of asyncTabs | async">
           <ng-template mat-tab-label>{{tab.label}}</ng-template>
           {{tab.content}}
+          
         </mat-tab>
       </mat-tab-group>
 </div>

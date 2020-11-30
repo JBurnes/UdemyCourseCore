@@ -25,7 +25,7 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import{MatInputModule}from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +41,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     ServerErrorComponent,
     MemberCardComponent,
     
+    
   ],
   imports: [
     BrowserModule,
@@ -50,7 +51,8 @@ import {MatTabsModule} from '@angular/material/tabs';
    FormsModule,
    SharedModule,
    MatInputModule,
-   MatTabsModule
+   MatTabsModule,
+   NgxGalleryModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

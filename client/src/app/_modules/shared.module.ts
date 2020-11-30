@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { MatSliderModule } from '@angular/material/slider';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 
 import{MatInputModule}from '@angular/material/input'
 @NgModule({
@@ -14,7 +16,9 @@ import{MatInputModule}from '@angular/material/input'
      positionClass:'toast-bootom-right'
    }),
    MatSliderModule,
-   MatInputModule
+   MatInputModule,
+   TabsModule.forRoot(),
+   NgxGalleryModule
   
   ],
   exports:[
