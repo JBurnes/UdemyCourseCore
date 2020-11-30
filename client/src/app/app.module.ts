@@ -26,6 +26,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import{MatInputModule}from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import {NgxGalleryModule} from '@kolkov/ngx-gallery';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import {NgxGalleryModule} from '@kolkov/ngx-gallery';
     NotFoundComponent,
     ServerErrorComponent,
     MemberCardComponent,
+    MemberEditComponent,
     
     
   ],
