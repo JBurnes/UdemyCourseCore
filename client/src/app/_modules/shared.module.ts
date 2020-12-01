@@ -7,6 +7,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 
 import{MatInputModule}from '@angular/material/input'
+import { FileUploadModule } from 'ng2-file-upload';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -18,13 +20,15 @@ import{MatInputModule}from '@angular/material/input'
    MatSliderModule,
    MatInputModule,
    TabsModule.forRoot(),
-   NgxGalleryModule
+   NgxGalleryModule,
+   FileUploadModule
   
   ],
   exports:[
     BsDropdownModule,
     ToastrModule,
-   
+    NgxGalleryModule,
+    FileUploadModule
   ]
 })
 export class SharedModule { }
