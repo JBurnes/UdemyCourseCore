@@ -38,7 +38,7 @@ namespace API.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{username}")]
+        [HttpGet("{username}" ,Name ="GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
             return await _userRepository.GetMemberAsync(username);
@@ -57,7 +57,7 @@ namespace API.Controllers
             return BadRequest("Failed to update user");
 
         }
-        
+
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
@@ -82,9 +82,9 @@ namespace API.Controllers
 
             if (await _userRepository.SaveAllAsync())
             {
+                //return _mapper.Map<PhotoDto>(photo);
                 return CreatedAtRoute("GetUser", new {username = user.UserName} ,_mapper.Map<PhotoDto>(photo));
-            }
-                
+            }        
 
             return BadRequest("Problem addding photo");
         }
