@@ -8,6 +8,7 @@ import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 
 import{MatInputModule}from '@angular/material/input'
 import { FileUploadModule } from 'ng2-file-upload';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [],
@@ -21,14 +22,17 @@ import { FileUploadModule } from 'ng2-file-upload';
    MatInputModule,
    TabsModule.forRoot(),
    NgxGalleryModule,
-   FileUploadModule
+   FileUploadModule,
+   BsDatepickerModule.forRoot()
   
   ],
   exports:[
     BsDropdownModule,
     ToastrModule,
     NgxGalleryModule,
-    FileUploadModule
+    FileUploadModule,
+   BsDatepickerModule
+
   ]
 })
 export class SharedModule { }
