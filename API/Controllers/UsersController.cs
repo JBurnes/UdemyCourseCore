@@ -90,7 +90,6 @@ namespace API.Controllers
         }
 
 
-
          [HttpPut("set-main-photo/{photoId}")]
         public async Task<ActionResult> SetMainPhoto(int photoId)
         {
