@@ -10,6 +10,7 @@ import{MatInputModule}from '@angular/material/input'
 import { FileUploadModule } from 'ng2-file-upload';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -23,7 +24,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
    TabsModule.forRoot(),
    NgxGalleryModule,
    FileUploadModule,
-   BsDatepickerModule.forRoot()
+   BsDatepickerModule.forRoot(),
   
   ],
   exports:[
@@ -31,7 +32,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ToastrModule,
     NgxGalleryModule,
     FileUploadModule,
-   BsDatepickerModule
+   BsDatepickerModule,
+   
 
   ]
 })

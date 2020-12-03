@@ -5,6 +5,7 @@ import { Member } from 'src/app/_models/member';
 import { Pagination } from 'src/app/_models/pagination';
 import { MembersService } from 'src/app/_services/members.service';
 
+
 @Component({
   selector: 'app-member-list',
   templateUrl:'./member-list.component.html',
@@ -14,7 +15,7 @@ export class MemberListComponent implements OnInit {
   members:Member[];
    pagination :Pagination;
 pageNumber =1;
-pageSize=5;
+pageSize=3;
 
   constructor(private memberService: MembersService) { }
 
@@ -27,5 +28,12 @@ loadMembers(){
     this.members = response.result;
     this.pagination= response.pagination;
   })
+}
+
+pageChanged(event:any)
+{
+  console.log("page changed " + event.pege);
+  this.pageNumber = event.pege;
+  this.loadMembers();
 }
 }
