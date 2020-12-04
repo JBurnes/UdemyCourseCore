@@ -1,3 +1,4 @@
+using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -38,6 +39,9 @@ namespace API.Data
            query = query.Where(u => u.Gender == userParams.Gender);
             query = query.Where( u => u.UserName != userParams.CurrentUsername);
 
+            var minDob = DateTime.Today.AddYears(-userParams.MaxAge-1);
+            var maxDob= DateTime.Today.AddYears(-userParams.MinAge);
+            query = query.Where( u=> u.DateOfBirth>=minDob && u.DateOfBirth<= maxDob);
 
            return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking(),
            userParams.PageNumber,userParams.PageSize);
