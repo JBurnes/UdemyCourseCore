@@ -17,9 +17,10 @@ import { MembersService } from 'src/app/_services/members.service';
 export class MemberListComponent implements OnInit {
 
   members:Member[];
-  pagination :Pagination;
- userParams:UserParams;
-user;User;
+    pagination :Pagination;
+    userParams:UserParams;
+    user;User;
+
   constructor(private memberService: MembersService, private accountService: AccountService) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
       this.user = user;
