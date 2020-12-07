@@ -2,6 +2,6 @@ export interface User{
     username: string;
     token:string;
     photoUrl:string;
-    knowsAs:string ;
+    knownAs:string ;
     gender:string;
 }
