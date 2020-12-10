@@ -58,7 +58,7 @@ namespace API.Data.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
-                name: "LastActivity",
+                name: "LastActive",
                 table: "Users",
                 type: "TEXT",
                 nullable: false,
@@ -136,7 +136,7 @@ namespace API.Data.Migrations
                 table: "Users");
 
             migrationBuilder.DropColumn(
-                name: "LastActivity",
+                name: "LastActive",
                 table: "Users");
 
             migrationBuilder.DropColumn(

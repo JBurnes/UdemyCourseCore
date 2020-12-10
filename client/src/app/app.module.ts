@@ -52,6 +52,7 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
     DateInputComponent,
     
     
+    
   ],
   imports: [
     BrowserModule,
@@ -65,7 +66,9 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
    MatTabsModule,
    NgxGalleryModule,
    NgxSpinnerModule,
-   PaginationModule.forRoot()
+   PaginationModule.forRoot(),
+   MatTabsModule
+
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
