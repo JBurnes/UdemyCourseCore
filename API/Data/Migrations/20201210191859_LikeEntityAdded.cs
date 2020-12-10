@@ -6,10 +6,7 @@ namespace API.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "LastActivity",
-                table: "Users",
-                newName: "LastActive");
+           
 
             migrationBuilder.CreateTable(
                 name: "Likes",
