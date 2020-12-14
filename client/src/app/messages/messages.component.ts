@@ -27,7 +27,9 @@ export class MessagesComponent implements OnInit {
       this.pagination = response.pagination;
     })
   }
-
+  pageChanged(event: any) {
+    
+  }
  
 
 }
