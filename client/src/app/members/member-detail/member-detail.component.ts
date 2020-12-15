@@ -25,13 +25,19 @@ messages: Message[] = [];
 selected = new FormControl(0);
 
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute, private messageService :MessageService ) { }
+constructor(private memberService: MembersService, private route: ActivatedRoute, 
+  private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.loadMember();
-     this.route.queryParams.subscribe(params => {
-       params.tab? this.selectTab(params.tab):this.selectTab(0);
-     })
+    this.route.data.subscribe(data => {
+      this.member = data.member;
+      console.log("member oninit  +  " + this.member.username);
+    })
+
+    this.route.queryParams.subscribe(params => {
+      params.tab ? this.selectTab(params.tab) : this.selectTab(0);
+    })
+
     this.galleryOptions = [
       {
         width: '500px',
@@ -42,6 +48,9 @@ selected = new FormControl(0);
         preview: false
       }
     ]
+
+    this.galleryImages = this.getImages();
+
   }
 
   getImages(): NgxGalleryImage[] {
@@ -56,12 +65,12 @@ selected = new FormControl(0);
     return imageUrls;
   }
 
-  loadMember() {
-    this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe(member => {
-      this.member = member;
-      this.galleryImages = this.getImages();
-    })
-  }
+  // loadMember() {
+  //   this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe(member => {
+  //     this.member = member;
+     
+  //   })
+  // }
 
   loadMessages(){
     this.messageService.getMessageThread(this.member.username).subscribe(messages => {
@@ -70,10 +79,11 @@ selected = new FormControl(0);
   }
 
   selectTab(tabId:number){
+    console.log("params  +  " + tabId);
     this.selected.setValue(tabId);
   }
 
-  onTabActivated() {
+  onTabActivated(data: TabDirective) {
     
     console.log(this.messages.length)
     if (this.messages.length === 0) {
