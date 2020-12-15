@@ -65,7 +65,7 @@
                <mat-tab label='Messages {{member.knownAs}}'>
                 <ng-template matTabContent>
                 
-                    <app-member-messages [messages]="messages"></app-member-messages>
+                    <app-member-messages [messages]="messages" [username] = "member.username"></app-member-messages>
                  
                 </ng-template>
               </mat-tab>
