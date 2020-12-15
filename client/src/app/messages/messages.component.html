@@ -16,6 +16,8 @@
     </button>
     </div>
 </div>
+
+
 <div class="class row" *ngIf= "messages?.length === 0">
     <h3>No messages</h3>
 
@@ -30,12 +32,13 @@
             <th style ="width: 20%"></th>
         </tr>
 
-      <tr *ngFor="let message of messages" routerLink='{{container ==="Outbox"
+      <tr *ngFor="let message of messages" 
+            routerLink='{{container ==="Outbox"
             ?"/members/"+ message.recipientUsername
-            :"members/" +message.senderUsername}}'>
+            :"members/" + message.senderUsername}}'[queryParams]='{tabId: 3}'>
         <td>{{message.content}}</td>
         <td>
-            <div *ngIf="container ==='Outbox'" >
+            <div *ngIf="container ==='Outbox'" >        
                 <img 
                 class="img-circle rounder-circle mr-2"
                 src="{{message.recipientPhotoUrl || './assets/user.png'}}" 

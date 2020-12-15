@@ -3,9 +3,11 @@ import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
-import { TabDirective, TabsetComponent, TabsModule } from 'ngx-bootstrap/tabs';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
+import { Message } from 'src/app/_models/message';
 import { MessageService } from 'src/app/_services/message.service';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-member-detail',
@@ -13,18 +15,23 @@ import { MessageService } from 'src/app/_services/message.service';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
-  @ViewChild('memberTabs') memberTabs: TabsetComponent;
+  @ViewChild('memberTabs', {static: true})
+   memberTabs: TabsetComponent;
   member: Member;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
-activeTab:TabDirective;
-  messages: import("c:/Users/jesus/Documents/Trebuchet/Udemy courses/UdemyCourseCore/client/src/app/_models/message").Message[];
+
+messages: Message[] = [];
+selected = new FormControl(0);
+
 
   constructor(private memberService: MembersService, private route: ActivatedRoute, private messageService :MessageService ) { }
 
   ngOnInit(): void {
     this.loadMember();
-
+     this.route.queryParams.subscribe(params => {
+       params.tab? this.selectTab(params.tab):this.selectTab(0);
+     })
     this.galleryOptions = [
       {
         width: '500px',
@@ -61,12 +68,24 @@ activeTab:TabDirective;
       this.messages = messages;
     })
   }
-  onTabActivated(data: TabDirective){
-    this.activeTab =data;
-    if(this.activeTab.heading ==='Messages' && this.messages.length === 0){
-      this.loadMessages();
 
+  selectTab(tabId:number){
+    this.selected.setValue(tabId);
+  }
+
+  onTabActivated() {
+    
+    console.log(this.messages.length)
+    if (this.messages.length === 0) {
+      this.loadMessages();
     }
+  }
+ 
+
+  onClickTab() {
+        
+      //this.selected.setValue(this.tabs.length - 1);
+    console.log(this.selected.value);
   }
 
 }

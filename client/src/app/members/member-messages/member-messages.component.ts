@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Message } from 'src/app/_models/message';
 import { MessageService } from 'src/app/_services/message.service';
 import { __importDefault } from 'tslib';
@@ -11,8 +12,10 @@ import { __importDefault } from 'tslib';
 
 export class MemberMessageComponent implements OnInit 
 {
-  @Input() messages:Message[];
-  @Input() username:Message[];
+  @ViewChild('messageForm') messageForm: NgForm;
+  @Input() messages: Message[];
+  @Input() username: string;
+  
 
   
 
