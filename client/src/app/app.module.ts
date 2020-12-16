@@ -31,6 +31,7 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import { MemberMessageComponent } from './members/member-messages/member-messages.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { MemberMessageComponent } from './members/member-messages/member-message
     TextInputComponent,
     DateInputComponent,
     MemberMessageComponent,
+    AdminPanelComponent,
     
     
     
