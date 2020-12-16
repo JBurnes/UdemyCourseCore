@@ -10,13 +10,28 @@ namespace API.Controllers
 {
     public class AdminController : BaseApiController
     {
-       
-
+        private readonly UserManager<AppUser> _userManager;
+        public AdminController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
         [Authorize(Policy = "RequireAdminRole")]
         [HttpGet("users-with-roles")]
-        public  ActionResult GetUsersWithRoles()
-        {           
-            return Ok("only admins can see this");
+       public async Task<ActionResult> GetUsersWithRoles()
+        {
+            var users = await _userManager.Users
+                .Include(r => r.UserRoles)
+                .ThenInclude(r => r.Role)
+                .OrderBy(u => u.UserName)
+                .Select(u => new
+                {
+                    u.Id,
+                    Username = u.UserName,
+                    Roles = u.UserRoles.Select(r => r.Role.Name).ToList()
+                })
+                .ToListAsync();
+
+            return Ok(users);
         }
 
       
