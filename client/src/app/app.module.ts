@@ -32,6 +32,7 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import { MemberMessageComponent } from './members/member-messages/member-messages.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
     DateInputComponent,
     MemberMessageComponent,
     AdminPanelComponent,
+    HasRoleDirective,
     
     
     
