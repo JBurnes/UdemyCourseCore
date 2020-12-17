@@ -10,6 +10,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
 import {MatTabsModule} from '@angular/material/tabs';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [],
@@ -26,7 +27,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
     TimeagoModule.forRoot(),
-    MatTabsModule
+    MatTabsModule,
+    ModalModule.forRoot(),
   ],
   exports: [
     BsDropdownModule,
@@ -37,7 +39,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     BsDatepickerModule,
     PaginationModule,
     ButtonsModule,
-    TimeagoModule
+    TimeagoModule,
+    ModalModule
   ]
 })
 export class SharedModule { }
