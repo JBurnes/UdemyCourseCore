@@ -7,6 +7,7 @@ import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { Message } from 'src/app/_models/message';
 import { MessageService } from 'src/app/_services/message.service';
 import { FormControl } from '@angular/forms';
+import { PresenceService } from 'src/app/_services/presence.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ messages: Message[] = [];
 selected = new FormControl(0);
 
 
-constructor(private memberService: MembersService, private route: ActivatedRoute, 
+constructor(public  presence: PresenceService , private route: ActivatedRoute, 
   private messageService: MessageService) { }
 
   ngOnInit(): void {
