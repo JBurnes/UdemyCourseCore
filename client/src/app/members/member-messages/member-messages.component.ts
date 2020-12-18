@@ -19,8 +19,8 @@ export class MemberMessageComponent implements OnInit
   
   constructor(  public  messageService: MessageService) { }
   sendMessage() {
-    this.messageService.sendMessage(this.username, this.messageContent).subscribe(message => {
-      this.messages.push(message);
+    this.messageService.sendMessage(this.username, this.messageContent).then(() => {
+ 
       this.messageForm.reset();
     })
   }
