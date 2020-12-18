@@ -17,8 +17,7 @@ baseUrl= environment.apiUrl;
 hubUrl= environment.hubUrl;
 private hubConnection: HubConnection;
 private messageThreadSource = new BehaviorSubject<Message[]>([]);
-messageThread = this.messageThreadSource.asObservable();
-
+messageThread$ = this.messageThreadSource.asObservable();
 
 
   constructor(private  http:HttpClient) { }
@@ -38,7 +37,10 @@ createHubConnection(user:User , otherUsername:string)
   })
 }
     stopHubConnection (){
-    this.hubConnection.stop();
+      if(this.hubConnection){
+        this.hubConnection.stop();
+      }
+    
 }
   
   getMessages(pageNumber, pageSize, container) {
