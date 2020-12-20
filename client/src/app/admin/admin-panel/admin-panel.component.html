@@ -1,0 +1,18 @@
+<h2>Admin Panel</h2>
+<div class="tab-panel">
+    <mat-tab-group>
+        <mat-tab label="User management" *appHasRole='["Admin"]'> 
+            <div class="container">
+                <app-user-management></app-user-management>
+            </div>
+        </mat-tab>
+        <mat-tab label="Photo management" *appHasRole='["Admin", "Moderator"]'>            
+            <div class="container">
+                <app-photo-management></app-photo-management>
+            </div>
+        </mat-tab>
+       
+      </mat-tab-group>      
+</div>
+
+

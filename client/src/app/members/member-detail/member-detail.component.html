@@ -1,30 +1,34 @@
-<div class="row" *ngIf="member">
+<div>detail</div>
+<div class="row" >
     <div class="col-4">
         <div class="card">
             <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" 
                 class="card-img-top img-thumbnail">
-            <div class="card-body">
-                <div>
-                    <strong>Location:</strong>
-                    <p>{{member.city}}, {{member.country}}</p>
+                <div class="card-body">
+                    <div class="mb-2" *ngIf="(presence.onlineUsers$ | async).includes(member.username)" >
+                        <i class="fa fa-user-circle text-success"></i> Online now
+                    </div>
+                    <div>
+                        <strong>Location:</strong>
+                        <p>{{member.city}}, {{member.country}}</p>
+                    </div>
+                    <div>
+                        <strong>Age:</strong>
+                        <p>{{member.age}}</p>
+                    </div>
+                    <div>
+                        <strong>Last Active:</strong>
+                        <p>{{member.lastActive | timeago}}</p>
+                    </div>
+                    <div>
+                        <strong>Member since:</strong>
+                        <p>{{member.created | date: 'dd MMM yyyy'}}</p>
+                    </div>
                 </div>
-                <div>
-                    <strong>Age:</strong>
-                    <p>{{member.age}}</p>
-                </div>
-                <div>
-                    <strong>Last Active:</strong>
-                    <p>{{member.lastActive | timeago}}</p>
-                </div>
-                <div>
-                    <strong>Member since:</strong>
-                    <p>{{member.created | date: 'dd MMM yyyy'}}</p>
-                </div>
-            </div>
             <div class="card-footer">
                 <div class="btn-group d-flex">
                     <button class="btn btn-primary">Like</button>
-                    <button class="btn btn-success">Message</button>
+                    <button (click)="selectTab(3)"class="btn btn-success">Message</button>
                 </div>
             </div>
         </div>
@@ -33,20 +37,43 @@
     
 
 <div>
-      <mat-tab-group>
-        <mat-tab label="Description">
-          <ng-template matTabContent>
-            <p>{{member.introduction}}</p>
-            <h4>Looking for</h4>
-            <p>{{member.lookingFor}}</p>
-          </ng-template>
-        </mat-tab>
-        <mat-tab label="Interests">
-          <ng-template matTabContent>
-            <p>{{member.interests}}</p>
-          </ng-template>
-        </mat-tab>
-       
-      </mat-tab-group>
+     
+
+
+      <mat-tab-group [selectedIndex]="selected.value"
+               (selectedIndexChange)="selected.setValue($event)"
+               (click)="onTabActivated($event)">
+
+               <mat-tab label='About {{member.knownAs}}' >
+                <ng-template matTabContent>
+                  <p>{{member.introduction}}</p>
+                  <h4>Looking for</h4>
+                  <p>{{member.lookingFor}}</p>
+                </ng-template>
+
+              </mat-tab>
+              <mat-tab label='Interests {{member.knownAs}}'>
+                <ng-template matTabContent>
+                  <p>{{member.interests}}</p>
+                </ng-template>
+              </mat-tab>
+              <mat-tab label='Photos  {{member.knownAs}}' 
+              
+                  >
+                  <ng-template matTabContent>
+                      <ngx-gallery [options]="galleryOptions" [images]="galleryImages" 
+                      style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
+                  </ng-template>
+                </mat-tab>
+               <mat-tab label='Messages {{member.knownAs}}'>
+                <ng-template matTabContent>
+                
+                    <app-member-messages  [username] = "member.username"></app-member-messages>
+                 
+                </ng-template>
+              </mat-tab>
+</mat-tab-group>
+
+      <button (click)="onClickTab()" class="btn btn-success">clicked</button>
 
 </div>

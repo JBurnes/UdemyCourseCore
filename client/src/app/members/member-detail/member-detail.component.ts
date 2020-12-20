@@ -1,23 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
+import { Message } from 'src/app/_models/message';
+import { MessageService } from 'src/app/_services/message.service';
+import { FormControl } from '@angular/forms';
+import { PresenceService } from 'src/app/_services/presence.service';
+import { AccountService } from 'src/app/_services/account.service';
+import { User } from 'src/app/_models/user';
+import { take } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-member-detail',
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css']
 })
-export class MemberDetailComponent implements OnInit {
+export class MemberDetailComponent implements OnInit , OnDestroy {
+  @ViewChild('memberTabs', {static: true})
+   memberTabs: TabsetComponent;
   member: Member;
+  activeTab: TabDirective;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute) { }
+messages: Message[] = [];
+selected = new FormControl(0);
+user:User;
+
+constructor(public  presence: PresenceService , private route: ActivatedRoute, 
+  private messageService: MessageService, private accountService: AccountService ) { 
+    this.accountService.currentUser$.pipe(take(1)).subscribe( user => this.user = user);
+  }
+
 
   ngOnInit(): void {
-    this.loadMember();
+    this.route.data.subscribe(data => {
+      this.member = data.member;
+      console.log("member oninit  +  " + this.member.username);
+    })
+
+    this.route.queryParams.subscribe(params => {
+      params.tab ? this.selectTab(params.tab) : this.selectTab(0);
+    })
 
     this.galleryOptions = [
       {
@@ -29,6 +56,9 @@ export class MemberDetailComponent implements OnInit {
         preview: false
       }
     ]
+
+    this.galleryImages = this.getImages();
+
   }
 
   getImages(): NgxGalleryImage[] {
@@ -43,11 +73,51 @@ export class MemberDetailComponent implements OnInit {
     return imageUrls;
   }
 
-  loadMember() {
-    this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe(member => {
-      this.member = member;
-      this.galleryImages = this.getImages();
+  // loadMember() {
+  //   this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe(member => {
+  //     this.member = member;
+     
+  //   })
+  // }
+
+  loadMessages(){
+    this.messageService.getMessageThread(this.member.username).subscribe(messages => {
+      this.messages = messages;
     })
+  }
+
+  selectTab(tabId:number){
+    console.log("params  +  " + tabId);
+    this.selected.setValue(tabId);
+  }
+
+  // onTabActivated(data: TabDirective) {
+  //   this.activeTab = data;
+  //   if (this.activeTab.heading === 'Messages' && this.messages.length === 0) {
+  //     this.messageService.createHubConnection(this.user, this.member.username);
+  //   } else {
+  //     this.messageService.stopHubConnection();
+  //   }
+  // }
+ 
+  onTabActivated(data: TabDirective) {
+    
+    if (this.messages.length === 0) {
+          this.messageService.createHubConnection(this.user, this.member.username);
+        } else {
+          this.messageService.stopHubConnection();
+    }
+  }
+
+  onClickTab() {
+        ``
+      //this.selected.setValue(this.tabs.length - 1);
+    console.log(this.selected.value);
+  }
+
+
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
   }
 
 }
