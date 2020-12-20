@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -23,6 +23,7 @@ export class AccountService {
         if (user) {
           this.setCurrentUser(user);
           this.presence.createHubConnection(user);
+          console.log('login ' + user.username)
         }
       })
     )
@@ -32,8 +33,8 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/register', model).pipe(
       map((user: User) => {
         if (user) {
-         this.setCurrentUser(user);
-         this.presence.createHubConnection(user);
+          this.setCurrentUser(user);
+          this.presence.createHubConnection(user);
         }
       })
     )
