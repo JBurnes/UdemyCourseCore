@@ -118,10 +118,6 @@ namespace API.Data
             _context.Connections.Remove(connection);
         }
 
-        public async Task<bool> SaveAllAsync()
-        {
-            //si es exitoso regresa un valor de accion por lo tanto sera mayor a 0 y nos dira que si fue exitoso de lo contrario sera falso.
-            return await _context.SaveChangesAsync() > 0;
-        }
+      
     }
 }
