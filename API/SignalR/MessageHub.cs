@@ -16,16 +16,16 @@ namespace API.SignalR
         private readonly IMapper _mapper;
         private readonly IHubContext<PresenceHub> _presenceHub;
         private readonly IUserRepository _userRepository;
+        private readonly PresenceTracker _tracker;
         public MessageHub(IMessageRepository messageRepository, IMapper mapper,
-
-
-
-        IUserRepository userRepository)
+            IUserRepository userRepository, IHubContext<PresenceHub> presenceHub,
+            PresenceTracker tracker)
         {
+            _tracker = tracker;
+            _presenceHub = presenceHub;
+            _userRepository = userRepository;
             _mapper = mapper;
             _messageRepository = messageRepository;
-            _userRepository = userRepository;
-
         }
 
         public override async Task OnConnectedAsync()
@@ -60,11 +60,11 @@ namespace API.SignalR
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-             var group = await RemoveFromMessageGroup();
+            var group = await RemoveFromMessageGroup();
             await Clients.Group(group.Name).SendAsync("UpdatedGroup", group);
             await base.OnDisconnectedAsync(exception);
         }
-          private async Task<Group> RemoveFromMessageGroup()
+        private async Task<Group> RemoveFromMessageGroup()
         {
             var group = await _messageRepository.GetGroupForConnection(Context.ConnectionId);
             var connection = group.Connections.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
@@ -108,7 +108,15 @@ namespace API.SignalR
             {
                 message.DateRead = DateTime.UtcNow;
             }
-           
+            else
+            {
+                var connections = await _tracker.GetConnectionsForUser(recipient.UserName);
+                if(connections != null)
+            {
+                await _presenceHub .Clients.Clients(connections).SendAsync("NewMessageRecived",new {username = sender.UserName, knownAs = sender.KnownAs});
+            }
+            }
+
 
             _messageRepository.AddMessage(message);
 
@@ -117,10 +125,10 @@ namespace API.SignalR
                 await Clients.Group(groupName).SendAsync("NewMessage", _mapper.Map<MessageDto>(message));
             }
 
-            
+
         }
 
-      
+
 
 
 

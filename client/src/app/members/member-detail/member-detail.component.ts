@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { Message } from 'src/app/_models/message';
@@ -31,8 +31,9 @@ selected = new FormControl(0);
 user:User;
 
 constructor(public  presence: PresenceService , private route: ActivatedRoute, 
-  private messageService: MessageService, private accountService: AccountService ) { 
+  private messageService: MessageService, private accountService: AccountService, private router : Router) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe( user => this.user = user);
+    this.router.routeReuseStrategy.shouldReuseRoute = () =>false;
   }
 
 
