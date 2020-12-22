@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.SignalR
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     public class PresenceTracker
     {
         private static readonly Dictionary<string, List<string>> OnlineUsers =
@@ -69,7 +70,5 @@ namespace API.SignalR
 
             return Task.FromResult(connectionIds);
         }
-
-         
     }
 }

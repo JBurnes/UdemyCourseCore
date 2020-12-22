@@ -1,4 +1,3 @@
-import { group } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
@@ -13,8 +12,6 @@ import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
 @Injectable({
   providedIn: 'root'
 })
-
-
 export class MessageService {
   baseUrl = environment.apiUrl;
   hubUrl = environment.hubUrl;
@@ -22,11 +19,11 @@ export class MessageService {
   private messageThreadSource = new BehaviorSubject<Message[]>([]);
   messageThread$ = this.messageThreadSource.asObservable();
 
-
   constructor(private http: HttpClient) { }
+
   createHubConnection(user: User, otherUsername: string) {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(this.hubUrl + 'message?user' + otherUsername, {
+      .withUrl(this.hubUrl + 'message?user=' + otherUsername, {
         accessTokenFactory: () => user.token
       })
       .withAutomaticReconnect()
@@ -34,35 +31,34 @@ export class MessageService {
 
     this.hubConnection.start().catch(error => console.log(error));
 
-    this.hubConnection.on('ReciveMessageThread', messages => {
+    this.hubConnection.on('ReceiveMessageThread', messages => {
       this.messageThreadSource.next(messages);
     })
+
     this.hubConnection.on('NewMessage', message => {
       this.messageThread$.pipe(take(1)).subscribe(messages => {
         this.messageThreadSource.next([...messages, message])
       })
     })
 
-    this.hubConnection.on('UpdatedGroup', (  group: Group) => {
-      if(group.connections.some(x=> x.username === otherUsername)){
+    this.hubConnection.on('UpdatedGroup', (group: Group) => {
+      if (group.connections.some(x => x.username === otherUsername)) {
         this.messageThread$.pipe(take(1)).subscribe(messages => {
-          messages.forEach(messages => {
-            if(!messages.dateRead){
-              messages.dateRead = new Date(Date.now())
+          messages.forEach(message => {
+            if (!message.dateRead) {
+              message.dateRead = new Date(Date.now())
             }
           })
           this.messageThreadSource.next([...messages]);
         })
       }
     })
-
-
   }
+
   stopHubConnection() {
-    if (this.hubConnection) {
+    if (this.hubConnection.state === 'Connected') {
       this.hubConnection.stop();
     }
-
   }
 
   getMessages(pageNumber, pageSize, container) {
@@ -76,7 +72,7 @@ export class MessageService {
   }
 
   async sendMessage(username: string, content: string) {
-    return this.hubConnection.invoke('SendMessage', { recipientUsername: username, content })
+    return this.hubConnection.invoke('SendMessage', {recipientUsername: username, content})
       .catch(error => console.log(error));
   }
 
